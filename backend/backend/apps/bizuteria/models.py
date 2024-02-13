@@ -7,10 +7,26 @@ class Product(models.Model):
     quantity = models.IntegerField()
     description = models.TextField()
     image = models.ImageField()
-    category = models.ForeignKey('Kategoria', on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', to_field="name", on_delete=models.CASCADE)
     
-class Kategoria(models.Model):
-    name = models.CharField(max_length=50)
+class Category(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+class Reviev(models.Model):
+    user = models.ForeignKey(
+        "accounts.user", on_delete=models.CASCADE, related_name="revievs"
+    )
+    product = models.ForeignKey("bizuteria.Product", on_delete=models.CASCADE, related_name='revievs')
+    rating = models.IntegerField(choices=((1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')))
+    content = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('product', 'user') 
+
+    def __str__(self):
+        return f'Recenzja użytkownika {self.user} dla produktu {self.product}'
+
 
 class Order(models.Model):
     class OrderStatus(models.TextChoices):

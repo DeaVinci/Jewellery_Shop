@@ -1,12 +1,24 @@
 from rest_framework import serializers
-from bizuteria.models import Product, Order
-#from accounts.models import User
+from bizuteria.models import Product, Order, Category, Reviev
+from accounts.models import User
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ("id", "name", "price", "quantity", "description", "image", "category")
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ("id", "name")
+
+class RevievSerializer(serializers.ModelSerializer):
+    product = ProductSerializer
+    
+    class Meta:
+        model = Reviev
+        fields = ("id", "user", "product", "rating", "content", "date")
 
 
 class OrderSerializer(serializers.ModelSerializer):
