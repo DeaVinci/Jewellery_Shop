@@ -10,6 +10,20 @@ class ProductFilter(filters.FilterSet):
         model = Product
         fields = ["name"]
 
+class CategoryFilter(filters.FilterSet):
+    name = filters.CharFilter(field_name="name", lookup_expr="icontains")
+
+    class Meta:
+        model = Category
+        fields = ["name"]
+
+class RevievFilter(filters.FilterSet):
+    name = filters.CharFilter(field_name="name", lookup_expr="icontains")
+
+    class Meta:
+        model = Reviev
+        fields = ["name"]
+
 
 class OrderFilter(filters.FilterSet):
     products = filters.CharFilter(lookup_expr="icontains", field_name="products__name")
