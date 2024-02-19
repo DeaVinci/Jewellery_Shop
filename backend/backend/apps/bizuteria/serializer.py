@@ -8,19 +8,6 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = ("id", "name", "price", "quantity", "short_description", "long_description", "image", "category", "created_at", "updated_at", "is_available", "slug")
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ("id", "name")
-
-class RevievSerializer(serializers.ModelSerializer):
-    product = ProductSerializer
-    
-    class Meta:
-        model = Reviev
-        fields = ("id", "user", "product", "rating", "content", "date")
-
-
 class OrderSerializer(serializers.ModelSerializer):
     products = ProductSerializer(many=True)
 
