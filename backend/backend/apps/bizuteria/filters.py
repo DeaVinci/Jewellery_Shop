@@ -1,6 +1,6 @@
 from rest_framework import generics
 from django_filters import rest_framework as filters
-from bizuteria.models import Product, Order
+from bizuteria.models import Product, Order, Category, ProductReview
 
 
 class ProductFilter(filters.FilterSet):
@@ -18,3 +18,16 @@ class OrderFilter(filters.FilterSet):
     class Meta:
         model = Order
         fields = ["products", "status"]
+
+class ProductReviewFilter(filters.FilterSet):
+    class Meta:
+        model = ProductReview
+        fields = ['product']
+
+
+class CategoryFilter(filters.FilterSet):
+    name = filters.CharFilter(field_name="name", lookup_expr="icontains")
+
+    class Meta:
+        model = Category
+        fields = ["name"]

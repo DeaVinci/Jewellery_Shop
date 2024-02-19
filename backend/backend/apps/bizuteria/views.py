@@ -1,9 +1,9 @@
 from rest_framework.generics import ListAPIView, ListCreateAPIView
-from bizuteria.serializer import ProductSerializer, OrderSerializer, OrderCreateSerializer
-from bizuteria.models import Product, Order
+from bizuteria.serializer import ProductSerializer, OrderSerializer, OrderCreateSerializer, ProductReviewSerializer, CategorySerializer
+from bizuteria.models import Product, Order, ProductReview, Category
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
-from bizuteria.filters import ProductFilter, OrderFilter
+from bizuteria.filters import ProductFilter, OrderFilter, ProductReviewFilter, CategoryFilter
 from rest_framework.permissions import IsAuthenticated
 
 class ProductList(ListCreateAPIView):
@@ -32,3 +32,20 @@ class OrderList(ListCreateAPIView):
         else:
             serializer_class = self.serializer_class
         return serializer_class
+    
+class ProductReviewList(ListCreateAPIView):
+    queryset = ProductReview.objects.all()
+    serializer_class = ProductReviewSerializer
+    permission_classes = ()
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = ProductReviewFilter
+
+
+class CategoryList(ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = ()
+    pagination_class = PageNumberPagination
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = CategoryFilter
