@@ -4,6 +4,8 @@ from bizuteria.models import Product, Order, Category, ProductReview
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
+    
     class Meta:
         model = Product
         fields = ("id", "name", "price", "quantity", "short_description", "long_description", "image", "category", "created_at", "updated_at", "is_available", "slug")
@@ -50,3 +52,6 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("id", "name")
+
+    def create(self, validated_data):
+        return Category.objects.create(**validated_data)

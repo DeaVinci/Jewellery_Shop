@@ -41,7 +41,7 @@ class ProductReviewList(ListCreateAPIView):
     filterset_class = ProductReviewFilter
 
 
-class CategoryList(ListAPIView):
+class CategoryList(ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = ()
