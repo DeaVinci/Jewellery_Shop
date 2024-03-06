@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import Header from './components/header';
+import Product_card from './components/Product_component/Product_card';
+import Main_page from './pages/Main_page/main';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
         </a>
       </header>
       <Header />
+      <Main_page />
     </div>
   );
 }

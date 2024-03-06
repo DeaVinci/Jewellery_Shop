@@ -1,0 +1,16 @@
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Django React Webpack</title>
+            <!-- Webpack rendered CSS -->
+            <link type="text/css" href="/static/dist/main-ce37ab46c0988b0f0827.css" rel="stylesheet">
+        </head>
+
+        <body>
+            <div id="react-app"><div></div>
+            <!-- Webpack rendered JS -->
+            <script type="text/javascript" src="/static/dist/main-ce37ab46c0988b0f0827.js"></script>
+        </body>
+    </html>
