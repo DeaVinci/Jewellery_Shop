@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const Product_card = (props) => {
+const ProductCard = (props) => {
     const {id, name, price, quantity, image, short_description} = props
     
     return(
@@ -21,4 +21,4 @@ const Product_card = (props) => {
     )
 }
 
-export default Product_card
+export default ProductCard

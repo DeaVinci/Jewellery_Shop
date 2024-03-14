@@ -1,11 +1,18 @@
 import React from "react";
+import { Outlet, Link } from "react-router-dom";
+import RegisterPage from "../pages/register";
 
 const Header = () => {
     return(
+      <>
         <div className="navbar bg-base-100">
+  
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl">daisyUI</a>
+    <Link to='/'>
+      <a className="btn btn-ghost text-xl">Biżuteria</a>
+    </Link>
   </div>
+  
   <div className="flex-none">
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -31,18 +38,30 @@ const Header = () => {
         </div>
       </div>
       <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        <Link to='/register'>
         <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>
+            <div className="justify-between">
+              Register
+              <span className="badge">New</span>
+            </div>
+          </li>
+        </Link>
+        <Link to='/login'>
+        <li>
+            <div className="justify-between">
+              Login
+              <span className="badge">New</span>
+            </div>
+          </li>
+        </Link>
         <li><a>Settings</a></li>
         <li><a>Logout</a></li>
       </ul>
     </div>
   </div>
 </div>
+<Outlet />
+</>
     )
 }
 
