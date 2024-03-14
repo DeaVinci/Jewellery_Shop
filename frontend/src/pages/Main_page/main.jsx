@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios'
-import Product_card from "../../components/Product_component/Product_card";
+import ProductCard from "../../components/Product_component/ProductCard";
 
-const Main_page = () => {
+const MainPage = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const Main_page = () => {
                 <div className='flex flex-col sm md:flex-row gap-4 grid-cols-5 w-screen mx-32'>
                   {products.map((products) => {
                     return (
-                      <Product_card key={products.id} {...products} />
+                      <ProductCard key={products.id} {...products} />
                     )
                   })}
                 </div>
@@ -41,7 +41,7 @@ const Main_page = () => {
                   <div className='flex flex-col sm md:flex-row gap-4 grid-cols-5 w-screen mx-32'>
                     {products.map((products) => {
                       return (
-                        <Product_card key={products.id} {...products} />
+                        <ProductCard key={products.id} {...products} />
                       )
                     })}
                   </div>
@@ -53,4 +53,4 @@ const Main_page = () => {
     )
 }
 
-export default Main_page
+export default MainPage
