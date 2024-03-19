@@ -18,7 +18,7 @@ const MainPage = () => {
         <div className='main-container w-screen'>
         {/* <div className='left-section'>
         </div> */}
-        <div className="grid gap-4 mt-40 w-screen flex flex-col items-center justify-center">
+        <div className="grid gap-4 mt-24 w-screen flex flex-col items-center justify-center">
           <div className=' md '>
             <div className='flex items-center justify-center p-5'>
                 <p className='info-p mx-10 font-bold'>Popularne produkty</p>
