@@ -2,11 +2,12 @@ import React, {useEffect, useState} from "react";
 import axios from 'axios'
 import { useNavigate, redirect } from 'react-router-dom';
 import { useAuth } from "../context/useAuth";
+import Header from "../components/header";
 
 
 
 const LoginPage = () => {
-    const {authDispatch} = useAuth();
+  const {authDispatch} = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -19,7 +20,8 @@ const LoginPage = () => {
       });
 
       const token = response.data.token;
-      authDispatch({type: 'setToken', data: token})
+      const user = response.data.user; // Załóżmy, że dane użytkownika są zwracane w odpowiedzi
+      authDispatch({type: 'setToken', data: token, user: user});
       navigate('/')
     } catch (error) {
         console.error('Login failed', error);

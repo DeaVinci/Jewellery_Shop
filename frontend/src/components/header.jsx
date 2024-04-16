@@ -1,12 +1,22 @@
-import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import React, {useState} from "react";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import RegisterPage from "../pages/register";
 import profile_img from '../assets/User.svg'
 import Navbar from "./navbar";
+import { useAuth } from "../context/useAuth";
 
 const Header = () => {
-    return(
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(); // Wywołanie funkcji logout z hooka useAuth
+    navigate('/login'); // Przekierowanie użytkownika do strony logowania
+  };
+  
+  return(
       <>
+      <p>Stan zalogowania: {isLoggedIn ? 'Zalogowany' : 'Nie zalogowany'}</p>
         <div className="navbar bg-base-100">
   
   <div className="flex-1">
@@ -47,6 +57,8 @@ const Header = () => {
         </div>
       </div>
       <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        {!isLoggedIn && (
+          <>
         <Link to='/register'>
         <li>
             <div className="justify-between">
@@ -63,8 +75,15 @@ const Header = () => {
             </div>
           </li>
         </Link>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        </>
+        )}
+        {isLoggedIn && (
+                <>
+                  {/* Przyciski lub sekcja dla zalogowanego użytkownika */}
+                  <li><a>Settings</a></li>
+                  <li><a onClick={handleLogout}>Logout</a></li>
+                </>
+              )}
       </ul>
     </div>
   </div>
