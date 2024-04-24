@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView
 from bizuteria.serializer import ProductSerializer, OrderSerializer, OrderCreateSerializer, ProductReviewSerializer, CategorySerializer
 from bizuteria.models import Product, Order, ProductReview, Category
 from rest_framework.pagination import PageNumberPagination
@@ -13,6 +13,21 @@ class ProductList(ListCreateAPIView):
     pagination_class = PageNumberPagination
     filter_backends = (DjangoFilterBackend,)
     filterset_class = ProductFilter
+
+class ProductDetail(RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = ()
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = ProductFilter
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        # Pobierz ID produktu z parametru URL
+        pk = self.kwargs.get('pk')
+        # Filtruj queryset, aby zwrócić tylko produkt o określonym ID
+        obj = queryset.filter(pk=pk).first()
+        return obj
 
 class OrderList(ListCreateAPIView):
     queryset = Order.objects.all()

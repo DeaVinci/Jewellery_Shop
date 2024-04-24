@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios'
 import ProductCard from "../../components/Product_component/ProductCard";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 
 const MainPage = () => {
     const [products, setProducts] = useState([])
@@ -27,7 +28,9 @@ const MainPage = () => {
                 <div className='sm gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-screen mx-28'>
                   {products.map((products) => {
                     return (
-                      <ProductCard key={products.id} {...products} />
+                      <Link key={products.id} to={`/bizuteria/product/${products.id}`}> {/* Przekierowanie do strony produktu z parametrem ID produktu */}
+                          <ProductCard {...products} />
+                      </Link>
                     )
                   })}
                 </div>

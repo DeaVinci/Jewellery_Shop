@@ -8,6 +8,7 @@ import MainPage from './pages/Main_page/main';
 import RegisterPage from './pages/register';
 import LoginPage from './pages/login';
 import { AuthProvider } from './context/useAuth';
+import ProductPage from './pages/product_page';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
               <Route index element={<MainPage />} />
               <Route path='/login' element={<LoginPage />} />
               <Route path='/register' element={<RegisterPage />} />
+              <Route path='/bizuteria/product/:id' element={<ProductPage/>} />
             </Route>
           </Routes>
         </Router>
