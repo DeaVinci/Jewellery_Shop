@@ -4,6 +4,36 @@ import ProductCard from "../../components/Product_component/ProductCard";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+
+  const addToCart = (product) => {
+    const existingItem = cart.find(item => item.id === product.id)
+
+    if (existingItem) {
+      updateQuantity(existingItem.id, existingItem.quantity + product.quantity)
+    } else {
+      setCart([...cart, product])
+    }
+  }
+
+  const removeFromCart = (productId) => {
+    const updatedCart = cart.filter(item => item.id !== productId)
+    setCart(updatedCart)
+  }
+
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(productId)
+    } else {
+      const updatedCart = cart.map(item => {
+        if (item.id === productId) {
+          return { ...item, quantity: newQuantity }
+        }
+        return item
+      })
+      setCart(updatedCart)
+    }
+  }
+
     const [products, setProducts] = useState([])
 
     useEffect(() => {
@@ -29,7 +59,7 @@ const MainPage = () => {
                   {products.map((products) => {
                     return (
                       <Link key={products.id} to={`/bizuteria/product/${products.id}`}> {/* Przekierowanie do strony produktu z parametrem ID produktu */}
-                          <ProductCard {...products} />
+                          <ProductCard {...products}/>
                       </Link>
                     )
                   })}
