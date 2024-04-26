@@ -1,8 +1,24 @@
 import React from "react";
+import { useCart } from "../../pages/Cart/cart_context";
+
+
 
 
 const ProductCard = (props) => {
     const {id, name, price, quantity, image, short_description} = props
+    const { addToCart } = useCart()
+
+    const handleAddToCart = () => {
+      const product = {
+        id, 
+        name, 
+        price, 
+        quantity, 
+        image, 
+        short_description
+      }
+      addToCart(product)
+    }
     
     return(
         <div className="card w-100 bg-base-100 shadow-xl">
@@ -11,10 +27,10 @@ const ProductCard = (props) => {
           </figure>
           <div className="card-body items-center text-center">
             <h2 className="card-title">{name}</h2>
-            <h3>{price}</h3>
+            <h3>{price} zł</h3>
             <p>{short_description}</p>
             <div className="card-actions">
-          <button className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Dodaj do koszyka</button>
+     {/*     <button className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md" onClick={handleAddToCart}>Dodaj do koszyka</button> */}
             </div>
           </div>
         </div>

@@ -9,6 +9,8 @@ import RegisterPage from './pages/register';
 import LoginPage from './pages/login';
 import { AuthProvider } from './context/useAuth';
 import ProductPage from './pages/product_page';
+import { CartProvider } from './pages/Cart/cart_context';
+import CartPage from './pages/Cart/cart';
 
 
 function App() {
@@ -17,10 +19,11 @@ function App() {
       <AuthProvider>
         <Router>
           <Routes>
-            <Route path='/'element={<Header />}>
+            <Route path='/'element={<CartProvider><Header /></CartProvider>}>
               <Route index element={<MainPage />} />
               <Route path='/login' element={<LoginPage />} />
               <Route path='/register' element={<RegisterPage />} />
+              <Route path='/cart' element={<CartPage />} />
               <Route path='/bizuteria/product/:id' element={<ProductPage/>} />
             </Route>
           </Routes>

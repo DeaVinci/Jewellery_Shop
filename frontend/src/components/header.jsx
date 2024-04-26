@@ -1,13 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import RegisterPage from "../pages/register";
 import profile_img from '../assets/User.svg'
 import Navbar from "./navbar";
 import { useAuth } from "../context/useAuth";
+import { calculateSubtotal } from "./cartFunctions";
+import { getCartProducts } from "./cartFunctions";
 
 const Header = () => {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+  const [subtotal, setSubtotal] = useState(0);
+
+  // Pobierz produkty z koszyka z localStorage podczas pierwszego renderowania
+  useEffect(() => {
+    const products = getCartProducts();
+    setCartItems(products);
+  }, []);
+
+  // Oblicz nową cenę i ilość produktów w koszyku po każdej zmianie
+  useEffect(() => {
+    const newSubtotal = calculateSubtotal(cartItems);
+    setSubtotal(newSubtotal);
+  }, [cartItems]);
+
+  useEffect(() => {
+    setCartItems(getCartProducts());
+  }, [cartItems.length]); // Monitoruj zmiany w długości koszyka
+  
+  useEffect(() => {
+    setSubtotal(calculateSubtotal(cartItems));
+  }, [cartItems]); // Monitoruj zmiany w koszyku
 
   const handleLogout = () => {
     logout(); // Wywołanie funkcji logout z hooka useAuth
@@ -37,15 +61,17 @@ const Header = () => {
                   <circle cx="9" cy="20" r="1" fill="#222222" />
                 </svg>
 
-                <span className="badge badge-sm indicator-item">8</span>
+                <span className="badge badge-sm indicator-item">{cartItems.length}</span>
               </div>
             </div>
-            <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
+            <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow ">
               <div className="card-body">
-                <span className="font-bold text-lg">8 Items</span>
-                <span className="text-info">Subtotal: $999</span>
-                <div className="card-actions">
-                  <button className="btn btn-primary btn-block">View cart</button>
+                <span className="font-bold text-lg">{cartItems.length} Produktów</span>
+                <span className="text-info">{subtotal} zł</span>
+                <div className="card-actions flex justify-center">
+                  <Link to='/cart'>
+                    <button className="btn bg-amber-300 hover:bg-amber-500 btn-block w-full">Przejdź do koszyka</button>
+                  </Link>
                 </div>
               </div>
             </div>
