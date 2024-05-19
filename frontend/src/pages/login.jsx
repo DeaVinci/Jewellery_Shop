@@ -57,7 +57,12 @@ const LoginPage = () => {
             onClick={handleLogin}
             type="submit" 
             value="Zaloguj" 
-            className="btn" />
+            className="btn" 
+            onKeyDown={(e) => {
+              if (e.key === 'Enter')
+                handleLogin()
+            }}
+            />
         </div>
     </div>
     )

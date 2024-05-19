@@ -11,6 +11,8 @@ class Product(models.Model):
     quantity = models.IntegerField()
     short_description = models.CharField(max_length=255, default='')
     long_description = models.TextField(default='')
+    fineness = models.CharField(max_length=3, default='585')
+    metal = models.CharField(max_length=15, default='Srebro')
     image = models.ImageField()
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)

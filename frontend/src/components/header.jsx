@@ -1,37 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
-import RegisterPage from "../pages/register";
 import profile_img from '../assets/User.svg'
 import Navbar from "./navbar";
 import { useAuth } from "../context/useAuth";
-import { calculateSubtotal } from "./cartFunctions";
-import { getCartProducts } from "./cartFunctions";
+import { useCart } from "../pages/Cart/cart_context";
+import SearchBar from "./search_bar";
 
 const Header = () => {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
-
-  // Pobierz produkty z koszyka z localStorage podczas pierwszego renderowania
-  useEffect(() => {
-    const products = getCartProducts();
-    setCartItems(products);
-  }, []);
-
-  // Oblicz nową cenę i ilość produktów w koszyku po każdej zmianie
-  useEffect(() => {
-    const newSubtotal = calculateSubtotal(cartItems);
-    setSubtotal(newSubtotal);
-  }, [cartItems]);
+  const { cart, getTotalItems, totalPrice } = useCart();
+  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
-    setCartItems(getCartProducts());
-  }, [cartItems.length]); // Monitoruj zmiany w długości koszyka
-  
-  useEffect(() => {
-    setSubtotal(calculateSubtotal(cartItems));
-  }, [cartItems]); // Monitoruj zmiany w koszyku
+    setTotalItems(getTotalItems());
+  }, [cart]);
 
   const handleLogout = () => {
     logout(); // Wywołanie funkcji logout z hooka useAuth
@@ -40,16 +23,17 @@ const Header = () => {
 
   return (
     <>
-      <p>Stan zalogowania: {isLoggedIn ? 'Zalogowany' : 'Nie zalogowany'}</p>
-      <div className="navbar bg-base-100">
-
-        <div className="flex-1">
+      <div className="navbar bg-base-100 font_poppins">
+        <div className="flex-1 text-nowrap">
           <Link to='/'>
-            <a className="btn btn-ghost text-xl">Biżuteria</a>
+            <a className="btn text-xl">Złoty sklepik</a>
           </Link>
         </div>
-
-        <div className="flex-none">
+        
+        <div className="flex gap-3">
+          <div className="flex">
+            <SearchBar />
+          </div>
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
               <div className="indicator">
@@ -60,14 +44,13 @@ const Header = () => {
                   <circle cx="17" cy="20" r="1" fill="#222222" />
                   <circle cx="9" cy="20" r="1" fill="#222222" />
                 </svg>
-
-                <span className="badge badge-sm indicator-item">{cartItems.length}</span>
+                <span className="badge badge-sm indicator-item">{totalItems}</span>
               </div>
             </div>
             <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow ">
               <div className="card-body">
-                <span className="font-bold text-lg">{cartItems.length} Produktów</span>
-                <span className="text-info">{subtotal} zł</span>
+                <span className="font-bold text-lg">{totalItems} Produktów</span>
+                <span className="text-info">{new Intl.NumberFormat('pl-PL', {style: 'currency', currency: 'PLN'}).format(totalPrice)}</span>
                 <div className="card-actions flex justify-center">
                   <Link to='/cart'>
                     <button className="btn bg-amber-300 hover:bg-amber-500 btn-block w-full">Przejdź do koszyka</button>
@@ -88,16 +71,14 @@ const Header = () => {
                   <Link to='/register'>
                     <li>
                       <div className="justify-between">
-                        Register
-                        <span className="badge">New</span>
+                        Rejestracja
                       </div>
                     </li>
                   </Link>
                   <Link to='/login'>
                     <li>
                       <div className="justify-between">
-                        Login
-                        <span className="badge">New</span>
+                        Zaloguj
                       </div>
                     </li>
                   </Link>
@@ -105,9 +86,10 @@ const Header = () => {
               )}
               {isLoggedIn && (
                 <>
-                  {/* Przyciski lub sekcja dla zalogowanego użytkownika */}
-                  <li><a>Settings</a></li>
-                  <li><a onClick={handleLogout}>Logout</a></li>
+                  <Link to={'/profile'}>
+                    <li><a>Ustawienia</a></li>
+                  </Link>
+                  <li><a onClick={handleLogout}>Wyloguj</a></li>
                 </>
               )}
             </ul>
@@ -116,9 +98,8 @@ const Header = () => {
       </div>
       <Navbar />
       <Outlet />
-
     </>
   )
 }
 
-export default Header
+export default Header;

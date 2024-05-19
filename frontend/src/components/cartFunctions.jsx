@@ -6,6 +6,17 @@ export const addToCart = (product) => {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+export const updateQuantity = (productId, newQuantity) => {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const updatedCart = cart.map(product => {
+      if (product.id === productId) {
+          return { ...product, quantity: newQuantity };
+      }
+      return product;
+  });
+  localStorage.setItem('cart', JSON.stringify(updatedCart));
+}
+
 export const removeFromCart = (productId) => {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const updatedCart = cart.filter(product => product.id !== productId);
@@ -17,13 +28,14 @@ export const getCartProducts = () => {
 }
 
 export const calculateSubtotal = (cartItems) => {
-    let subtotal = 0;
-    cartItems.forEach(item => {
+  let subtotal = 0;
+  cartItems.forEach(item => {
       subtotal += item.price * item.quantity;
-    });
-    return subtotal;
-  };
+  });
+  const total = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN' }).format(subtotal);
+  return total;
+};
 
 export const clearCart = () => {
-    // Implementacja czyszczenia koszyka w localStorage
+
 };
