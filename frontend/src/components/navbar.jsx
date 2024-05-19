@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ListComponent } from "./templates";
 
 const Navbar = () => {
-  
+
+
+
   return (
-    <div className="drawer">
+    <div className="drawer font_poppins">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
@@ -15,13 +18,24 @@ const Navbar = () => {
             </label>
           </div>
           <div className="hidden md:block ">
-            <ul className="menu menu-horizontal text-lg font-serif font-bold tracking-wider">
+            <ul className="menu menu-horizontal text-lg font-serif font-bold tracking-wider gap-3">
               {/* Navbar menu content here */}
-              <Link to='/'>
-              <li className="mx-3"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Strona główna</a></li>
-              </Link>
-              <li className="mx-3"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">O nas</a></li>
+              <ListComponent>
+                <Link to='/'>Strona główna</Link>
+              </ListComponent>
+              <ListComponent>O nas</ListComponent>
+              <ListComponent>
+                <Link to="/category/pierscionki">Pierścionki</Link>
+              </ListComponent>
+              <ListComponent>
+                <Link to="/category/naszyjniki">Naszyjniki</Link>
+              </ListComponent>
+              <ListComponent>
+                <Link to="/category/bransoletki">Bransoletki</Link>
+              </ListComponent>
+              {/*<Link to='/profile'>
               <li className="mx-3"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Profil</a></li>
+                 </Link>*/}
             </ul>
           </div>
         </div>
@@ -29,13 +43,24 @@ const Navbar = () => {
       </div>
       <div className="drawer-side z-10 md:hidden">
         <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-200">
+        <ul className="menu p-4 w-80 min-h-full gap-3 bg-base-200">
           {/* Sidebar content here */}
-          <Link to='/'>
-              <li className="mx-3"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Strona główna</a></li>
-              </Link>
-          <li className="mx-3 py-1"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">O nas</a></li>
-          <li className="mx-3 py-1"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Profil</a></li>
+          <ListComponent>
+            <Link to='/'>Strona główna</Link>
+          </ListComponent>
+          <ListComponent>O nas</ListComponent>
+          <ListComponent>
+            <Link to="/category/pierscionki">Pierścionki</Link>
+          </ListComponent>
+          <ListComponent>
+            <Link to="/category/naszyjniki">Naszyjniki</Link>
+          </ListComponent>
+          <ListComponent>
+            <Link to="/category/bransoletki">Bransoletki</Link>
+          </ListComponent>
+          {/*<Link to='/profile'>
+              <li className="mx-3"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Profil</a></li>
+             </Link>*/}
         </ul>
       </div>
     </div>

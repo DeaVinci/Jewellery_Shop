@@ -1,12 +1,20 @@
-from rest_framework import serializers
+from rest_framework import serializers, request
 from django.contrib.auth import get_user_model
 from copy import deepcopy
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth.models import User
 from rest_framework.exceptions import ValidationError
-
+from rest_framework import serializers
 User = get_user_model()
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'first_name', 'last_name', 'city', 'street', )  # Określ interesujące nas pola
+        read_only_fields = ('id',)  # Ustaw pola, które mają być tylko do odczyt
 
 
 class RegisterSerializer(serializers.ModelSerializer):

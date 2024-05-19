@@ -55,7 +55,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
 ]
 
-CORS_ALLOW_HEADERS = ["Content-Type", "token"]
+CORS_ALLOW_HEADERS = ["Content-Type", "token", "Authorization", "Token"]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
