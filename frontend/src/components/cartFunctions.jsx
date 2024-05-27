@@ -28,13 +28,17 @@ export const getCartProducts = () => {
 }
 
 export const calculateSubtotal = (cartItems) => {
-  let subtotal = 0;
-  cartItems.forEach(item => {
+    let subtotal = 0;
+    cartItems.forEach(item => {
       subtotal += item.price * item.quantity;
-  });
-  const total = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN' }).format(subtotal);
-  return total;
+    });
+    return subtotal;
+  };
+  
+export const formatCurrency = (amount) => {
+  return new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN' }).format(amount);
 };
+  
 
 export const clearCart = () => {
 

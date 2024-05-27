@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/useAuth";
+import ReCAPTCHA from "react-google-recaptcha"
+
 
 const RegisterPage = () => {
   const { authDispatch } = useAuth();
   const navigate = useNavigate();
+  const [capVal, serCapVal] = useState(null)
 
   // Stan formularza
   const [email, setEmail] = useState('');
@@ -34,7 +37,8 @@ const RegisterPage = () => {
       });
 
       const token = response.data.token;
-      authDispatch({ type: 'setToken', data: token });
+      const user = response.data.user; // Załóżmy, że dane użytkownika są zwracane w odpowiedzi
+      authDispatch({type: 'setToken', data: token, user: user});
       navigate('/');
     } catch (error) {
       console.error('Registration failed', error);
@@ -73,8 +77,11 @@ const RegisterPage = () => {
             className='grow transition duration-500 ease-in-out focus:bg-amber-200 bg-white'
           />
           </label>
-          
-          <input onClick={handleRegister} type="submit" value="Zarejestruj" className="btn" />
+          <ReCAPTCHA
+          sitekey="6LeF2OkpAAAAAOE52axMeXs7pbkWsAoB9JNv-KDp"
+          onChange={(val) => serCapVal(val)}
+          />
+          <input onClick={handleRegister} disabled={!capVal} type="submit" value="Zarejestruj" className="btn" />
         
       </div>
     </div>
