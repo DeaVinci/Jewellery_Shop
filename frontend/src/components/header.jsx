@@ -31,9 +31,6 @@ const Header = () => {
         </div>
         
         <div className="flex gap-3">
-          <div className="flex">
-            <SearchBar />
-          </div>
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
               <div className="indicator">

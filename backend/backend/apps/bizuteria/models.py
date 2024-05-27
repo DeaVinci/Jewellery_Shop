@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils import timezone
+import uuid
 import datetime
 
 
@@ -45,22 +46,27 @@ class ProductReview(models.Model):
     class Meta:
         unique_together = ('product', 'user')
 
+class OrderProduct(models.Model):
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+
 class Order(models.Model):
     class OrderStatus(models.TextChoices):
         PAID = "P", _("Paid")
         REALIZATION = "R", _("In realization")
         SENT = "S", _("Sent")
 
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, db_index=True, editable=False)
     user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="orders")
-    products = models.ManyToManyField(Product, related_name="orders")
+    products = models.ManyToManyField(Product, related_name="orders", through='OrderProduct')
     city = models.CharField(max_length=512)
-    zip_code = models.CharField(max_length=64)
+    zipCode = models.CharField(max_length=64)
     street = models.CharField(max_length=128)
-    house_number = models.CharField(max_length=64)
+    houseNumber = models.CharField(max_length=64)
     status = models.CharField(max_length=1, choices=OrderStatus.choices, default=OrderStatus.PAID)
     created_at = models.DateTimeField(default=timezone.now)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def __str__(self):
         return f"Order #{self.pk} - {self.user.username}"
-

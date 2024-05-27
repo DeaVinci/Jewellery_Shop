@@ -10,7 +10,6 @@ const EditProfile = () => {
   });
 
   useEffect(() => {
-    // Pobierz dane użytkownika po załadowaniu komponentu
     getUserData();
   }, []);
 

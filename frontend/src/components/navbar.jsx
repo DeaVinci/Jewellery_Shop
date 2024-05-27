@@ -7,7 +7,7 @@ const Navbar = () => {
 
 
   return (
-    <div className="drawer font_poppins">
+    <div className="drawer font_poppins mb-20">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}

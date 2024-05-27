@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { ProfileLabel } from "./templates";
+import { useAuth } from "../context/useAuth";
+import { getUserData } from "./userServices";
 
 const UserProfile = () => {
   const [user, setUser] = useState(); // Stan przechowujący dane użytkownika
@@ -9,28 +11,21 @@ const UserProfile = () => {
   const [email, setEmail] = useState("");
   const [last_name, setLastName] = useState("");
   const [city, setCity] = useState("");
+  const { token } = useAuth()
 
   useEffect(() => {
     // Wywołanie funkcji do pobrania danych użytkownika po załadowaniu komponentu
-    getUserData();
-  }, []);
+    const fetchData = async () => {
+      try {
+        const userData = await getUserData(token);
+        setUser(userData);
+      } catch (error) {
+        console.error("Wystąpił błąd podczas pobierania danych użytkownika", error);
+      }
+    };
 
-
-  const getUserData = async () => {
-    try {
-      // Wysłanie zapytania GET na endpoint do pobrania danych użytkownika
-      const response = await axios.get(`http://${process.env.REACT_APP_BACKEND}/accounts/user/profile/`, {
-        headers: {
-          token: `${localStorage.getItem("token")}` // Dodanie nagłówka z tokenem autoryzacyjnym
-        }
-      });
-      console.log(response.data)
-      // Ustawienie pobranych danych użytkownika w stanie komponentu
-      setUser(response.data);
-    } catch (error) {
-      console.error("Wystąpił błąd podczas pobierania danych użytkownika", error);
-    }
-  };
+    fetchData();
+  }, [token]);
 
   const handleSave = async () => {
     try {

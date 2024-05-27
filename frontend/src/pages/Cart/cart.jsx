@@ -1,10 +1,24 @@
 import React, { useState } from "react";
 import { useCart } from "./cart_context";
-import { calculateSubtotal } from "../../components/cartFunctions";
+import { Link } from "react-router-dom";
+import { calculateSubtotal, formatCurrency } from "../../components/cartFunctions";
+import Paypal from "../../components/paypal";
 
 const CartPage = () => {
     const { cart, removeFromCart, updateQuantity } = useCart();
     const subtotal = calculateSubtotal(cart);
+    const formattedSubtotal = formatCurrency(subtotal);
+
+    const [checkout, setCheckOut] = useState(false)
+
+    function placeOrder (cart) {
+        if (cart.length !== 0) {
+          console.log(cart)
+          console.log(cart.map(({ a }) => a))
+        }
+        localStorage.setItem('orderItems', JSON.stringify(cart));
+        localStorage.setItem('subtotal', subtotal.toFixed(2));
+      }
 
     return (
         <div className='flex items-center justify-center text-black'>
@@ -34,13 +48,25 @@ const CartPage = () => {
                     <div className='w-full p-3 border-b-4'>
                         <span className='mx-4 font-bold'>Szczegóły płatności</span>
                     </div>
-                    <div className='w-full p-3 flex justify-between border-b-4'>
-                        <span className='mx-4'>Total</span>
-                        <span className='mx-4'>{subtotal}</span>
-                    </div>
+                    <div className='w-full gap-3 p-3 flex justify-between border-b-4 md:flex-col lg:flex-col'>
+                        <span className='mx-4'>Suma</span>
+                        <span className='mx-4'>{formattedSubtotal}</span>
+                        <Link to='order'>
+                            <button onClick={() => placeOrder(cart)} className="drop-shadow-lg m-6 transition ease-in-out rounded bg-amber-200 font-mono p-4 mx-8 text-xl hover:bg-amber-500">
+                            Złóż zamówienie
+                            </button>
+                        </Link>
+                    
+                    {/*}    {checkout ? (
+                            <Paypal />
+                        ) : (
+                                <button onClick = { () => setCheckOut(true) }>Zamów produkty</button>
+                    )}
+                */}
                 </div>
             </div>
         </div>
+        </div >
     );
 };
 

@@ -15,9 +15,11 @@ import ProfilePage from './pages/profile_page';
 import EditProfile from './components/editProfile';
 import SearchResultsPage from './pages/search_results_page';
 import ProductsByCategory from './pages/products_category';
+import { Order } from './components/order';
 
 
 function App() {
+  
   return (
     <div className="App">
       <AuthProvider>
@@ -34,6 +36,7 @@ function App() {
               <Route path='/bizuteria/product/:id' element={<ProductPage />} />
               <Route path='/search' element={<SearchResultsPage />} />
               <Route path='/category/:category' element={<ProductsByCategory />} />
+              <Route path='/cart/order' element={<Order />} />
             </Route>
           </Routes>
         </Router>
