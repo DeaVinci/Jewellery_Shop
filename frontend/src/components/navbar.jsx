@@ -23,7 +23,6 @@ const Navbar = () => {
               <ListComponent>
                 <Link to='/'>Strona główna</Link>
               </ListComponent>
-              <ListComponent>O nas</ListComponent>
               <ListComponent>
                 <Link to="/category/pierscionki">Pierścionki</Link>
               </ListComponent>
@@ -33,6 +32,10 @@ const Navbar = () => {
               <ListComponent>
                 <Link to="/category/bransoletki">Bransoletki</Link>
               </ListComponent>
+              <ListComponent>
+                <Link to="/category/zegarki">Zegarki</Link>
+              </ListComponent>
+              <ListComponent>O nas</ListComponent>
               {/*<Link to='/profile'>
               <li className="mx-3"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Profil</a></li>
                  </Link>*/}
@@ -48,7 +51,6 @@ const Navbar = () => {
           <ListComponent>
             <Link to='/'>Strona główna</Link>
           </ListComponent>
-          <ListComponent>O nas</ListComponent>
           <ListComponent>
             <Link to="/category/pierscionki">Pierścionki</Link>
           </ListComponent>
@@ -58,6 +60,10 @@ const Navbar = () => {
           <ListComponent>
             <Link to="/category/bransoletki">Bransoletki</Link>
           </ListComponent>
+          <ListComponent>
+            <Link to="/category/zegarki">Zegarki</Link>
+          </ListComponent>
+          <ListComponent>O nas</ListComponent>
           {/*<Link to='/profile'>
               <li className="mx-3"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Profil</a></li>
              </Link>*/}

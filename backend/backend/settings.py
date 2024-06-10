@@ -157,6 +157,10 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("accounts.authentication.TokenAuthentication",),
 }
 
+EMAILJS_SERVICE_ID = 'service_yog1wxb'
+EMAILJS_TEMPLATE_ID = 'template_yowliza'
+EMAILJS_USER_ID = 'Gz403oXSb50Yj0X3a'
+
 #WEBPACK_LOADER = {
 #    'DEFAULT': {
 #        'BUNDLE_DIR_NAME': 'dist/',

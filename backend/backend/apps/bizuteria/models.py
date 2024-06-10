@@ -18,15 +18,16 @@ class Product(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    is_available = models.BooleanField(default=True)
-    slug = models.SlugField(unique=True, default='')
-
-    def get_absolute_url(self):
-        return reverse('product_detail', kwargs={'slug': self.slug})
+    
+    def __str__(self):
+        return self.name
 
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.name
 
 class ProductReview(models.Model):
     RATING_CHOICES = (
@@ -46,15 +47,19 @@ class ProductReview(models.Model):
     class Meta:
         unique_together = ('product', 'user')
 
+
 class OrderProduct(models.Model):
-    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='order_products')
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name} - Order #{self.order.id}"
 
 class Order(models.Model):
     class OrderStatus(models.TextChoices):
         PAID = "P", _("Paid")
-        REALIZATION = "R", _("In realization")
+        REALIZATION = "R", _("In realization")  
         SENT = "S", _("Sent")
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, db_index=True, editable=False)
@@ -69,4 +74,4 @@ class Order(models.Model):
     subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return f"Order #{self.pk} - {self.user.username}"
+        return f"Order #{self.pk} - {self.user.username} - {self.created_at}"

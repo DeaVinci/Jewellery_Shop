@@ -7,10 +7,6 @@ import { getUserData } from "./userServices";
 
 const UserProfile = () => {
   const [user, setUser] = useState(); // Stan przechowujący dane użytkownika
-  const [first_name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [city, setCity] = useState("");
   const { token } = useAuth()
 
   useEffect(() => {
@@ -27,32 +23,6 @@ const UserProfile = () => {
     fetchData();
   }, [token]);
 
-  const handleSave = async () => {
-    try {
-      // Wysłanie zapytania PUT na endpoint do aktualizacji danych użytkownika
-      const response = await axios.post(`http://${process.env.REACT_APP_BACKEND}/accounts/user/profile/`, {
-        first_name,
-        email,
-        last_name,
-        city
-      }, {
-        headers: {
-          token: `${localStorage.getItem("token")}` // Dodanie nagłówka z tokenem autoryzacyjnym
-        }
-      });
-      // Jeśli zapis się powiedzie, możemy poinformować użytkownika
-      alert("Dane zostały zaktualizowane!");
-      // Ponowne pobranie danych użytkownika po aktualizacji
-      getUserData();
-    } catch (error) {
-      console.error("Wystąpił błąd podczas aktualizacji danych użytkownika", error);
-      // Obsługa błędu, np. wyświetlenie komunikatu dla użytkownika
-      alert("Wystąpił błąd podczas aktualizacji danych użytkownika");
-    }
-  };
-
-
-
   return (
     <div className="justify-center flex">
       {user && (
@@ -67,7 +37,19 @@ const UserProfile = () => {
             Email: {user.email}
           </ProfileLabel>
           <ProfileLabel>
-            City: {user.city}
+            Miasto: {user.city}
+          </ProfileLabel>
+          <ProfileLabel>
+            Ulica: {user.street}
+          </ProfileLabel>
+          <ProfileLabel>
+            Numer domu: {user.houseNumber}
+          </ProfileLabel>
+          <ProfileLabel>
+            Telefon: {user.phone}
+          </ProfileLabel>
+          <ProfileLabel>
+            Kod pocztowy: {user.zipCode}
           </ProfileLabel>
 
           <Link to={'/edit-profile'}>

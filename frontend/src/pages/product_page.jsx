@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useCart } from "./Cart/cart_context";
 
 const ProductPage = () => {
@@ -14,9 +14,10 @@ const ProductPage = () => {
             name: product.name,
             image: product.image,
             price: product.price,
-            quantity: 1, // domyślna ilość dodawana do koszyka
+            quantity: 1,
         };
         addToCart(productData);
+        document.getElementById('modal').showModal();
     };
 
     useEffect(() => {
@@ -46,6 +47,20 @@ const ProductPage = () => {
                     <button className="btn bg-amber-300 hover:bg-amber-500" onClick={handleAddToCart}>Dodaj do koszyka</button>
                 </div>
             </div>
+            <dialog id="modal" className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Świetnie</h3>
+                    <p className="py-4">Produkt został dodany do koszyka!</p>
+                    <div className="modal-action flex flex-row">
+                    
+                        <button className="btn text-white bg-red-300 hover:bg-red-400" onClick={() => document.getElementById('modal').close()}>Zamknij</button>
+                        <Link to='/cart'>
+                            <button className="btn text-white bg-red-300 hover:bg-red-400">Przejdź do koszyka</button>
+                        </Link>
+        
+                    </div>
+                </div>
+            </dialog>
         </div>
     );
 }
