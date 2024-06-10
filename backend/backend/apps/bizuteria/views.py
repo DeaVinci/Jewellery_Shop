@@ -6,6 +6,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from bizuteria.filters import ProductFilter, OrderFilter, ProductReviewFilter, CategoryFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ProductList(ListCreateAPIView):
     queryset = Product.objects.all()
@@ -46,21 +49,20 @@ class ProductCategory(ListAPIView):
 
 class OrderList(ListCreateAPIView):
     queryset = Order.objects.all()
-    serializer_class = OrderSerializer
     permission_classes = (IsAuthenticated,)
     pagination_class = PageNumberPagination
     filter_backends = (DjangoFilterBackend,)
     filterset_class = OrderFilter
 
     def get_queryset(self):
-        return super().get_queryset().filter(user=self.request.user)
+        queryset = super().get_queryset().filter(user=self.request.user)
+        logger.info(f'Orders for user {self.request.user}: {queryset}')
+        return queryset
 
     def get_serializer_class(self):
         if self.request.method == "POST":
-            serializer_class = OrderCreateSerializer
-        else:
-            serializer_class = self.serializer_class
-        return serializer_class
+            return OrderCreateSerializer
+        return OrderSerializer
     
 class ProductReviewList(ListCreateAPIView):
     queryset = ProductReview.objects.all()

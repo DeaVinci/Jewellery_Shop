@@ -75,7 +75,7 @@ const Header = () => {
                   <Link to='/login'>
                     <li>
                       <div className="justify-between">
-                        Zaloguj
+                        Logowanie
                       </div>
                     </li>
                   </Link>

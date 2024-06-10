@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'city', 'street', )  # Określ interesujące nas pola
+        fields = ('id', 'email', 'first_name', 'last_name', 'city', 'street', 'houseNumber', 'phone', 'zipCode' )  # Określ interesujące nas pola
         read_only_fields = ('id',)  # Ustaw pola, które mają być tylko do odczyt
 
 
