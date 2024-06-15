@@ -16,6 +16,8 @@ import EditProfile from './components/editProfile';
 import SearchResultsPage from './pages/search_results_page';
 import ProductsByCategory from './pages/products_category';
 import { Order } from './components/order';
+import AboutUs from './pages/about_us';
+import AfterOrderPage from './pages/after_order';
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
               <Route path='/search' element={<SearchResultsPage />} />
               <Route path='/category/:category' element={<ProductsByCategory />} />
               <Route path='/cart/order' element={<Order />} />
+              <Route path='/aboutus' element={<AboutUs />} />
+              <Route path='/cart/order/orderdone' element={<AfterOrderPage />} />
             </Route>
           </Routes>
         </Router>

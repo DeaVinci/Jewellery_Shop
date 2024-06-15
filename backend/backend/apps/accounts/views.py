@@ -14,6 +14,7 @@ class UserProfileView(RetrieveUpdateAPIView):
     authentication_classes = [TokenAuthentication]  # Uwierzytelnienie za pomocą tokenu
     permission_classes = [AllowAny]  # Tylko zalogowani użytkownicy mogą uzyskać dostęp do tego widoku
     serializer_class = UserSerializer
+    queryset = User.objects.all()
 
     def get(self, request, *args, **kwargs):
         # Pobierz dane użytkownika na podstawie tokenu

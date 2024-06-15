@@ -26,7 +26,7 @@ const UserProfile = () => {
   return (
     <div className="justify-center flex">
       {user && (
-        <div className="w-8/12 shadow flex flex-col items-center p-3 m-5 font_poppins">
+        <div className="w-8/12 shadow-2xl rounded-md flex flex-col items-center p-3 m-5 font_poppins">
           <ProfileLabel>
             Imię: {user.first_name}
           </ProfileLabel>

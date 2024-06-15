@@ -28,11 +28,11 @@ const CartPage = () => {
                 <ul className='rounded-md bg-white text-black drop-shadow-lg overflow-hidden w-2/3 md md:w-full'>
                     {cart.map((item) => (
                         <li className='rounded-md overflow-hidden bg-amber-100 border px-7 py-5 m-5 flex flex-col items-center justify-between drop-shadow-lg md md:flex-row' key={item.id}>
-                            <div className="flex flex-col w-24 h-24 min-w-24 min-h-24 bg-white rounded-md items-center md md:flex-row min-w-7 min-h-7">
-                                <img className='rounded-md' src={item.image} alt="Item photo" />
+                            <div className="flex flex-col w-24 h-24 bg-white rounded-md items-center md md:flex-row mb-3 md:mb-0">
+                                <img className='rounded-md min-w-24 min-h-24' src={item.image} alt="Item photo" />
                             </div>
                             <div className='flex flex-col items-center md lg:flex-col xl:flex-row justify-center content-center'>
-                                <span className='px-4 text-base text-bold text-ellipsis overflow-hidden whitespace-nowrap'>{item.name}</span>
+                                <span className='px-4 text-base text-bold text-ellipsis'>{item.name}</span>
                                 <div className='m-5 px-4 '>{item.price} zł</div>
                                 <div className='flex justify-center items-center gap-3 '>
                                     <button className="btn w-11 bg-amber-300 hover:bg-amber-500 text-2xl" onClick={() => updateQuantity(item.id, item.quantity - 1)}>

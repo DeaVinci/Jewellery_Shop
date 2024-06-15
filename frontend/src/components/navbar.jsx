@@ -35,7 +35,9 @@ const Navbar = () => {
               <ListComponent>
                 <Link to="/category/zegarki">Zegarki</Link>
               </ListComponent>
-              <ListComponent>O nas</ListComponent>
+              <ListComponent>
+                <Link to="/aboutus">O nas</Link>
+              </ListComponent>
               {/*<Link to='/profile'>
               <li className="mx-3"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Profil</a></li>
                  </Link>*/}
@@ -63,7 +65,9 @@ const Navbar = () => {
           <ListComponent>
             <Link to="/category/zegarki">Zegarki</Link>
           </ListComponent>
-          <ListComponent>O nas</ListComponent>
+          <ListComponent>
+            <Link to="/aboutus">O nas</Link>
+          </ListComponent>
           {/*<Link to='/profile'>
               <li className="mx-3"><a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">Profil</a></li>
              </Link>*/}

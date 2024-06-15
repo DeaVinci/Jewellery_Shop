@@ -13,7 +13,7 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <h1>Twój profil</h1>
+      <h1 className="font-bold font_poppins">Twój profil</h1>
       <UserProfile />
     </div>
   );

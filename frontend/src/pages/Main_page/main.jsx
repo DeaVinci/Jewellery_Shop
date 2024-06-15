@@ -15,12 +15,7 @@ const MainPage = () => {
   //  }
   //}
 
-  const removeFromCart = (productId) => {
-    const updatedCart = cart.filter(item => item.id !== productId)
-    setCart(updatedCart)
-  }
-
-  //const updateQuantity = (productId, newQuantity) => {
+   //const updateQuantity = (productId, newQuantity) => {
   //  if (newQuantity <= 0) {
   //    removeFromCart(productId)
   //  } else {

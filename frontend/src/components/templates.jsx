@@ -2,7 +2,7 @@
 
 export const ListComponent = ({ children }) => {
     return (
-        <li className="font_poppins">
+        <li className="font_poppins list-none">
             <a className="btn bg-amber-300 hover:bg-amber-500 btn-xs sm:btn-sm lg:btn-md">
                 {children}
             </a>
