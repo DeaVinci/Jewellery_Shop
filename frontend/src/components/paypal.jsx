@@ -84,13 +84,13 @@ const Paypal = ({ amount, userData, token, navigate }) => {
               token: token
             }
           });
-
-          console.log('Order placed:', response.data);
+          const postData = response.data
+          console.log('Order placed:', postData.data);
           localStorage.removeItem('orderItems');
           navigate('/cart/order/orderdone');
           
           // Send confirmation email
-          sendConfirmationEmail(orderData, order);
+          sendConfirmationEmail(orderData, order, postData);
         } catch (error) {
           console.error('Order placement failed', error);
 
@@ -110,11 +110,11 @@ const Paypal = ({ amount, userData, token, navigate }) => {
     }).render(paypal.current);
   };
 
-  const sendConfirmationEmail = (orderData, order) => {
+  const sendConfirmationEmail = (orderData, order, postData) => {
     const templateParams = {
       user_email: userData.email,
       user_name: `${userData.first_name} ${userData.last_name}`,
-      order_id: order.id,
+      order_id: postData.id,
       order_total: order.purchase_units[0].amount.value,
       order_products: orderData.products_ids.map(p => `Produkt: ${p.name} (Ilość: ${p.quantity})`).join('\n'),
       order_date: new Date().toLocaleString(),

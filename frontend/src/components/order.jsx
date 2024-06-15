@@ -51,7 +51,7 @@ export const Order = () => {
 
   return (
     <div className="justify-center flex">
-      <form className="w-10/12 shadow flex flex-col items-center p-2 m-5">
+      <form className="w-8/12 shadow-2xl drop-shadow rounded-md flex flex-col items-center p-2 m-5">
         {/* Your form fields */}
         <OrderLabel>
           Imię:
@@ -94,7 +94,7 @@ export const Order = () => {
         {checkout ? (
           <Paypal amount={subtotal} userData={userData} token={token} navigate={navigate} />
         ) : (
-          <button onClick={() => setCheckOut(true)} className="w-full bg-blue-500 text-white px-4 py-2 rounded mb-4">Zapłać systemem PayPal</button>
+          <button onClick={() => setCheckOut(true)} className="w-1/2 bg-blue-500 text-white px-4 py-2 rounded mb-4">Zapłać systemem PayPal</button>
         )}
       </form>
     </div>

@@ -1,25 +1,47 @@
+// Header.js
 import React, { useState, useEffect } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
-import profile_img from '../assets/User.svg'
+import profile_img from '../assets/User.svg';
 import Navbar from "./navbar";
 import { useAuth } from "../context/useAuth";
 import { useCart } from "../pages/Cart/cart_context";
 import SearchBar from "./search_bar";
+import { getUserData } from "./userServices";
 
 const Header = () => {
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, user, token } = useAuth();
   const navigate = useNavigate();
   const { cart, getTotalItems, totalPrice } = useCart();
   const [totalItems, setTotalItems] = useState(0);
+  const [userData, setUser] = useState();
 
   useEffect(() => {
     setTotalItems(getTotalItems());
   }, [cart]);
 
   const handleLogout = () => {
-    logout(); // Wywołanie funkcji logout z hooka useAuth
-    navigate('/login'); // Przekierowanie użytkownika do strony logowania
+    logout();
+    navigate('/login');
   };
+
+  const getInitials = (firstName, lastName) => {
+    if (!firstName || !lastName) return '';
+    return `${firstName[0]}${lastName[0]}`.toUpperCase();
+  };
+
+  useEffect(() => {
+    // Wywołanie funkcji do pobrania danych użytkownika po załadowaniu komponentu
+    const fetchData = async () => {
+      try {
+        const userData = await getUserData(token);
+        setUser(userData);
+      } catch (error) {
+        console.error("Wystąpił błąd podczas pobierania danych użytkownika", error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
 
   return (
     <>
@@ -29,7 +51,7 @@ const Header = () => {
             <a className="btn text-xl">Złoty sklepik</a>
           </Link>
         </div>
-        
+
         <div className="flex gap-3">
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -59,7 +81,13 @@ const Header = () => {
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={profile_img} />
+                {isLoggedIn && userData ? (
+                  <div className="flex items-center justify-center h-full w-full bg-gray-200 rounded-full text-xl">
+                    {getInitials(userData.first_name, userData.last_name)}
+                  </div>
+                ) : (
+                  <img alt="Tailwind CSS Navbar component" src={profile_img} />
+                )}
               </div>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

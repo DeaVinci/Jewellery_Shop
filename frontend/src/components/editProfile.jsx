@@ -70,7 +70,7 @@ const EditProfile = () => {
 
   return (
     <div className="justify-center flex">
-      <form className="w-8/12 shadow flex flex-col items-center p-2 m-5">
+      <form className="w-8/12 shadow-2xl rounded-md flex flex-col items-center p-2 m-5">
         <OrderLabel>
           Imię:
           <OrderInput
