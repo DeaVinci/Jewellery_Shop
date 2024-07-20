@@ -64,7 +64,6 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
         logger.info(f"Order created: {order.id}, total price: {order.subtotal}")
 
-        # Send confirmation email using EmailJS
         self.send_confirmation_email(order, products_ids)
 
         return order

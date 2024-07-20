@@ -13,8 +13,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'city', 'street', 'houseNumber', 'phone', 'zipCode' )  # Określ interesujące nas pola
-        read_only_fields = ('id',)  # Ustaw pola, które mają być tylko do odczytu
+        fields = ('id', 'email', 'first_name', 'last_name', 'city', 'street', 'houseNumber', 'phone', 'zipCode' )
+        read_only_fields = ('id',)  
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -64,9 +64,6 @@ class AuthTokenSerializer(serializers.Serializer):
                 request=self.context.get("request"), username=email, password=password
             )
 
-            # The authenticate call simply returns None for is_active=False
-            # users. (Assuming the default ModelBackend authentication
-            # backend.)
             if not user:
                 msg = _("Unable to log in with provided credentials.")
                 raise serializers.ValidationError(msg, code="authorization")

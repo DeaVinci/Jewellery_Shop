@@ -28,7 +28,7 @@ const ProductPage = () => {
             })
             .catch((error) => {
                 console.log(error);
-                setProduct(null); // Możesz dodać tę linię tutaj, aby ustawić product na null w przypadku błędu
+                setProduct(null); 
             });
     }, [id]);
 

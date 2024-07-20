@@ -6,10 +6,9 @@ import UserProfile from "../components/user_profile";
 const ProfilePage = () => {
   const { isLoggedIn } = useAuth();
 
-  //if (!isLoggedIn) {
-    // Przekieruj użytkownika na stronę logowania, jeśli nie jest zalogowany
-  //  return <Navigate to="/login" />;
- // }
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div>
