@@ -19,7 +19,6 @@ const EditProfile = () => {
   const { token } = useAuth()
 
   useEffect(() => {
-    // Wywołanie funkcji do pobrania danych użytkownika po załadowaniu komponentu
     const fetchData = async () => {
       try {
         const userData = await getUserData(token);
@@ -43,7 +42,6 @@ const EditProfile = () => {
 
   const handleSave = async () => {
     try {
-      // Wysłanie zapytania POST na endpoint do aktualizacji danych użytkownika
       const response = await axios.put(`http://${process.env.REACT_APP_BACKEND}/accounts/user/profile/`, {
         first_name: user.first_name,
         last_name: user.last_name,
@@ -55,15 +53,12 @@ const EditProfile = () => {
         zipCode: user.zipCode,
       }, {
         headers: {
-          token: `${localStorage.getItem("token")}` // Dodanie nagłówka z tokenem autoryzacyjnym
+          token: `${localStorage.getItem("token")}` 
         }
       });
-      // Jeśli zapis się powiedzie, możemy poinformować użytkownika
-      //alert("Dane zostały zaktualizowane!");
       document.getElementById('modal').showModal();
     } catch (error) {
       console.error("Wystąpił błąd podczas aktualizacji danych użytkownika", error);
-      // Obsługa błędu, np. wyświetlenie komunikatu dla użytkownika
       alert("Wystąpił błąd podczas aktualizacji danych użytkownika");
     }
   };

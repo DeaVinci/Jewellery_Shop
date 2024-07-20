@@ -29,14 +29,14 @@ admin_site = MyAdminSite(name='myadmin')
 class OrderProductInline(admin.TabularInline):
     model = OrderProduct
     extra = 1
-    fields = ['product', 'quantity']  # You can adjust fields as per your model
+    fields = ['product', 'quantity']
 
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderProductInline]
     list_display = ['id', 'user', 'city', 'status', 'created_at', 'subtotal']
     search_fields = ['user__username', 'city', 'status']
     list_filter = ['status', 'created_at']
-    ordering = ['created_at']  # Default ordering by created_at
+    ordering = ['created_at']
 
 admin.site.register(Product)
 admin.site.register(Order, OrderAdmin)

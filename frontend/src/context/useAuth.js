@@ -12,13 +12,11 @@ const authReducer = (state, action) => {
     case "setToken": {
       console.log("Zalogowano");
       localStorage.setItem("token", action.data);
-      // Tutaj możemy załadować użytkownika na podstawie tokena, jeśli taka funkcjonalność jest dostępna w twojej aplikacji
-      // Przykład: const user = loadUserFromToken(action.data);
       return {
         ...state,
         token: action.data,
-        user: action.user, // Tutaj ustawiamy użytkownika na podstawie danych załadowanych z tokena
-        isLoggedIn: true, // Ustawiamy stan zalogowania na true po zalogowaniu
+        user: action.user,
+        isLoggedIn: true,
       };
     }
     case "logout": {
@@ -28,7 +26,7 @@ const authReducer = (state, action) => {
         ...state,
         token: null,
         user: null,
-        isLoggedIn: false, // Ustawiamy stan zalogowania na false po wylogowaniu
+        isLoggedIn: false,
       };
     }
 

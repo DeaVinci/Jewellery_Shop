@@ -6,11 +6,10 @@ import { useAuth } from "../context/useAuth";
 import { getUserData } from "./userServices";
 
 const UserProfile = () => {
-  const [user, setUser] = useState(); // Stan przechowujący dane użytkownika
+  const [user, setUser] = useState(); 
   const { token } = useAuth()
 
   useEffect(() => {
-    // Wywołanie funkcji do pobrania danych użytkownika po załadowaniu komponentu
     const fetchData = async () => {
       try {
         const userData = await getUserData(token);

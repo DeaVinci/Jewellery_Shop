@@ -5,7 +5,6 @@ import profile_img from '../assets/User.svg';
 import Navbar from "./navbar";
 import { useAuth } from "../context/useAuth";
 import { useCart } from "../pages/Cart/cart_context";
-import SearchBar from "./search_bar";
 import { getUserData } from "./userServices";
 
 const Header = () => {
@@ -30,7 +29,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // Wywołanie funkcji do pobrania danych użytkownika po załadowaniu komponentu
     const fetchData = async () => {
       try {
         const userData = await getUserData(token);

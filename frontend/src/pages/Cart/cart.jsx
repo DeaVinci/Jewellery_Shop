@@ -5,13 +5,13 @@ import { calculateSubtotal, formatCurrency } from "../../components/cartFunction
 import Paypal from "../../components/paypal";
 import Minus from '../../assets/minus-sm.svg'
 import Plus from '../../assets/plus-sm.svg'
+import { useAuth } from "../../context/useAuth";
 
 const CartPage = () => {
     const { cart, removeFromCart, updateQuantity } = useCart();
     const subtotal = calculateSubtotal(cart);
     const formattedSubtotal = formatCurrency(subtotal);
-
-    const [checkout, setCheckOut] = useState(false)
+    const { isLoggedIn } = useAuth();
 
     function placeOrder (cart) {
         if (cart.length !== 0) {
@@ -57,18 +57,26 @@ const CartPage = () => {
                     <div className='w-full gap-3 p-3 flex justify-between items-center border-b-4 md:flex-col lg:flex-col'>
                         <span className='mx-4 font-bold'>Suma</span>
                         <span className='mx-4'>{formattedSubtotal}</span>
-                        <Link to='order'>
-                            <button onClick={() => placeOrder(cart)} className="drop-shadow-lg m-6 transition ease-in-out rounded bg-amber-200 p-4 mx-8 text-xl hover:bg-amber-500">
-                            Złóż zamówienie
-                            </button>
-                        </Link> 
-                    
-                    {/*}    {checkout ? (
-                            <Paypal />
+                        {!isLoggedIn && (
+                            <div className='text-red-500 text-center mx-8'>
+                                Aby złożyć zamówienie, należy być zalogowanym.
+                            </div>
+                        )}
+                        {isLoggedIn ? (
+                            <Link to='order'>
+                                <button 
+                                    onClick={() => placeOrder(cart)} 
+                                    className="drop-shadow-lg m-6 transition ease-in-out rounded bg-amber-200 p-4 mx-8 text-xl hover:bg-amber-500">
+                                    Złóż zamówienie
+                                </button>
+                            </Link>
                         ) : (
-                                <button onClick = { () => setCheckOut(true) }>Zamów produkty</button>
-                    )}
-                */}
+                            <button 
+                                disabled 
+                                className="drop-shadow-lg m-6 transition ease-in-out rounded bg-gray-300 p-4 mx-8 text-xl cursor-not-allowed">
+                                Złóż zamówienie
+                            </button>
+                        )}
                 </div>
             </div>
         </div>

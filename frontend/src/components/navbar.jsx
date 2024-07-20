@@ -10,7 +10,6 @@ const Navbar = () => {
     <div className="drawer font_poppins mb-20">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
-        {/* Navbar */}
         <div className="w-full navbar bg-base-300 flex md:justify-center">
           <div className="flex-none md:hidden">
             <label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-square btn-ghost">
@@ -19,7 +18,6 @@ const Navbar = () => {
           </div>
           <div className="hidden md:block ">
             <ul className="menu menu-horizontal text-lg font-serif font-bold tracking-wider gap-3">
-              {/* Navbar menu content here */}
               <ListComponent>
                 <Link to='/'>Strona główna</Link>
               </ListComponent>
@@ -44,12 +42,10 @@ const Navbar = () => {
             </ul>
           </div>
         </div>
-        {/* Page content here */}
       </div>
       <div className="drawer-side z-10 md:hidden">
         <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 min-h-full gap-3 bg-base-200">
-          {/* Sidebar content here */}
           <ListComponent>
             <Link to='/'>Strona główna</Link>
           </ListComponent>

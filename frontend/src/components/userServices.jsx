@@ -2,10 +2,9 @@ import axios from "axios";
 
 export const getUserData = async (token) => {
   try {
-    // Wysłanie zapytania GET na endpoint do pobrania danych użytkownika
     const response = await axios.get(`http://${process.env.REACT_APP_BACKEND}/accounts/user/profile/`, {
       headers: {
-        token: token // Dodanie nagłówka z tokenem autoryzacyjnym
+        token: token 
       }
     });
     return response.data;

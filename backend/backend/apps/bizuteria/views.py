@@ -27,9 +27,7 @@ class ProductDetail(RetrieveAPIView):
 
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())
-        # Pobierz ID produktu z parametru URL
         pk = self.kwargs.get('pk')
-        # Filtruj queryset, aby zwrócić tylko produkt o określonym ID
         obj = queryset.filter(pk=pk).first()
         return obj
     
@@ -39,8 +37,8 @@ class ProductCategory(ListAPIView):
     permission_classes = ()
     pagination_class = PageNumberPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['category__name']  # Filtruj po nazwie kategorii
-    search_fields = ['name', 'short_description']  # Wyszukaj po nazwie i krótkim opisie
+    filterset_fields = ['category__name'] 
+    search_fields = ['name', 'short_description'] 
 
     def get_queryset(self):
         queryset = super().get_queryset()

@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { getUserData } from "./userServices";
 import { OrderLabel, OrderInput } from "./templates";
 import { calculateSubtotal, formatCurrency } from "./cartFunctions";
 import axios from "axios";
 import { useCart } from "../pages/Cart/cart_context";
 import Paypal from "./paypal";
-import PaypalWrapper from "./paypalWrapper";
+
 
 export const Order = () => {
-  const { token } = useAuth();
+  const { token, isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const { cart } = useCart();
-  const subtotal = parseFloat(calculateSubtotal(cart).toFixed(2));  // Zaokrąglij subtotal do dwóch miejsc po przecinku
+  const subtotal = parseFloat(calculateSubtotal(cart).toFixed(2)); 
   const formattedSubtotal = formatCurrency(subtotal);
+  const [checkout, setCheckOut] = useState(false); 
 
   const [userData, setUser] = useState({
     first_name: '',
@@ -27,20 +28,24 @@ export const Order = () => {
     zipCode: '',
   });
 
-  const [checkout, setCheckOut] = useState(false);  // State to control PayPal buttons
+  
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userData = await getUserData(token);
-        setUser(userData);
-      } catch (error) {
-        console.error("Wystąpił błąd podczas pobierania danych użytkownika", error);
-      }
-    };
+    if (!isLoggedIn) {
+      navigate('/');
+    } else {
+      const fetchData = async () => {
+        try {
+          const userData = await getUserData(token);
+          setUser(userData);
+        } catch (error) {
+          console.error("Wystąpił błąd podczas pobierania danych użytkownika", error);
+        }
+      };
 
-    fetchData();
-  }, [token]);
+      fetchData();
+    }
+  }, [isLoggedIn, token, navigate]);
 
   const handleChange = (e) => {
     setUser({
@@ -49,10 +54,13 @@ export const Order = () => {
     });
   };
 
+  if (!isLoggedIn) {
+    return null; 
+  }
+
   return (
     <div className="justify-center flex">
       <form className="w-8/12 shadow-2xl drop-shadow rounded-md flex flex-col items-center p-2 m-5">
-        {/* Your form fields */}
         <OrderLabel>
           Imię:
           <OrderInput type="text" name="first_name" value={userData.first_name} onChange={handleChange} required />
